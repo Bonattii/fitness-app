@@ -19,9 +19,9 @@ const Navbar = () => {
       variants={navVariants}
       initial="hidden"
       whileInView="show"
-      className="sm:px-16 px-6 py-8 relative w-full flex justify-between items-center"
+      className="sm:px-16 px-6 py-8 relative w-full flex justify-between items-center 2xl:max-w-[1280px] mx-auto"
     >
-      <div className="absolute w-[50%] inset-3 gradient-01" />
+      {/* <div className="absolute w-[50%] inset-0 gradient-01" /> */}
 
       <div className="flex justify-start items-center">
         <Link to="/">

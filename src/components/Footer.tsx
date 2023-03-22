@@ -53,7 +53,7 @@ const Footer = () => (
             className="w-[24px] h-[24px] object-contain"
           />
           <Link
-            to="/workouts"
+            to="/workout"
             className="font-normal text-[16px] text-primary-white"
           >
             JOIN BEFIT
@@ -78,7 +78,12 @@ const Footer = () => (
 
           <div className="flex gap-4">
             {socials.map((social, index) => (
-              <a key={social.name + index} href={social.url} target="_blank">
+              <a
+                key={social.name + index}
+                href={social.url}
+                target="_blank"
+                className="hover:opacity-80"
+              >
                 <img
                   src={social.imgUrl}
                   alt={social.name}

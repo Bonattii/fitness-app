@@ -7,6 +7,8 @@ import ExploreCard from './ExploreCard';
 import GetStarted from './GetStarted';
 import Contact from './Contact';
 import StartSteps from './StartSteps';
+import Input from './Input';
+import Label from './Label';
 import { TypingText, TitleText } from './CustomTexts';
 
 export {
@@ -20,5 +22,7 @@ export {
   ExploreCard,
   GetStarted,
   Contact,
-  StartSteps
+  StartSteps,
+  Input,
+  Label
 };

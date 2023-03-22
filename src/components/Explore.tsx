@@ -37,7 +37,7 @@ const Explore = () => {
   const [active, setActive] = useState('muscle-2');
 
   return (
-    <section className="sm:p-16 xs:p-8 px-6 py-12" id="explore">
+    <section className="sm:p-16 xs:p-8 px-6 py-12" id="workout">
       <motion.div
         variants={staggerContainer}
         initial="hidden"

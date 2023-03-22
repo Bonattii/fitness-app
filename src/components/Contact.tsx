@@ -3,8 +3,13 @@ import { send } from '@emailjs/browser';
 
 import { motion } from 'framer-motion';
 
-import { staggerContainer, fadeIn, planetVariants, zoomIn } from '../utils/motion';
-import { TitleText, TypingText } from '../components';
+import {
+  staggerContainer,
+  fadeIn,
+  planetVariants,
+  zoomIn
+} from '../utils/motion';
+import { Input, Label, TitleText, TypingText } from '../components';
 
 import { images } from '../constants';
 
@@ -67,14 +72,8 @@ const Contact = () => {
             >
               <div className="space-y-4 md:space-y-6">
                 <div className="flex flex-col items-start justify-start">
-                  <label
-                    htmlFor="name"
-                    className="block mb-2 text-sm font-medium text-primary-white"
-                  >
-                    Name <span className="text-secondary-blue">*</span>
-                  </label>
-                  <input
-                    className="border border-secondary-blue sm:text-sm rounded-lg block w-full p-2.5 bg-black placeholder-primary-white focus:ring-secondary-blue focus:ring-2 focus:outline-none"
+                  <Label id="name" content="Name" />
+                  <Input
                     id="name"
                     placeholder="Name"
                     value={name}
@@ -85,14 +84,8 @@ const Contact = () => {
                 </div>
 
                 <div className="flex flex-col items-start justify-start">
-                  <label
-                    htmlFor="email"
-                    className="block mb-2 text-sm font-medium text-primary-white"
-                  >
-                    Email <span className="text-secondary-blue">*</span>
-                  </label>
-                  <input
-                    className="border border-secondary-blue sm:text-sm rounded-lg block w-full p-2.5 bg-black placeholder-primary-white focus:ring-secondary-blue focus:ring-2 focus:outline-none"
+                  <Label id="email" content="Email" />
+                  <Input
                     id="email"
                     type="email"
                     placeholder="Your Email"
@@ -104,14 +97,9 @@ const Contact = () => {
                 </div>
 
                 <div className="flex flex-col items-start justify-start">
-                  <label
-                    htmlFor="message"
-                    className="block mb-2 text-sm font-medium text-primary-white"
-                  >
-                    Message <span className="text-secondary-blue">*</span>
-                  </label>
+                  <Label id="message" content="Message" />
                   <textarea
-                    className="border border-secondary-blue sm:text-sm rounded-lg block w-full p-2.5 bg-black placeholder-primary-white focus:ring-secondary-blue focus:ring-2 focus:outline-none resize-none"
+                    className="border border-secondary-blue sm:text-sm rounded-lg block w-full p-2.5 bg-black text-primary-white placeholder-primary-white focus:ring-secondary-blue focus:ring-2 focus:outline-none resize-none"
                     placeholder="Your Message"
                     id="message"
                     value={message}

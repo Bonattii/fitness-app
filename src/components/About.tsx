@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
-import { images } from '../constants';
 
+import { images } from '../constants';
 import { staggerContainer, fadeIn } from '../utils/motion';
 import { TypingText } from './CustomTexts';
 
@@ -30,18 +30,20 @@ const About = () => {
             of your movements{' '}
           </span>{' '}
           and allowing you to{' '}
-          <span className="font-extrabold text-white"> tack </span> your
+          <span className="font-extrabold text-white"> track </span> your
           workouts to enable you to{' '}
           <span className="font-extrabold text-white"> improve </span> even
           more!
         </motion.p>
 
-        <motion.img
-          variants={fadeIn('up', 'tween', 0.3, 1)}
-          src={images.arrowDown}
-          alt="arrow down"
-          className="w-[18px] h-[28px] object-contain mt-[28px]"
-        />
+        <a href="#workout">
+          <motion.img
+            variants={fadeIn('up', 'tween', 0.3, 1)}
+            src={images.arrowDown}
+            alt="arrow down"
+            className="w-[18px] h-[28px] object-contain mt-[28px]"
+          />
+        </a>
       </motion.div>
     </section>
   );
