@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { HiMenuAlt4, HiX } from 'react-icons/hi';
+import { Link, NavLink } from 'react-router-dom';
 
 import { navVariants } from '../utils/motion';
 import { images } from '../constants';
-import { Link, NavLink } from 'react-router-dom';
 
-const navItems = [{ name: 'home', href: '/' }];
+const navItems = [
+  { name: 'home', href: '/' },
+  { name: 'workout', href: '/workout' }
+];
 
 const Navbar = () => {
   const [toggle, setToggle] = useState(false);
@@ -18,7 +21,7 @@ const Navbar = () => {
       whileInView="show"
       className="sm:px-16 px-6 py-8 relative w-full flex justify-between items-center"
     >
-      <div className="absolute w-[50%] inset-7 gradient-01" />
+      <div className="absolute w-[50%] inset-3 gradient-01" />
 
       <div className="flex justify-start items-center">
         <Link to="/">
@@ -38,7 +41,7 @@ const Navbar = () => {
           >
             <NavLink
               to={item.href}
-              className="uppercase font-medium transition ease-in-out "
+              className="uppercase font-medium transition ease-in-out"
             >
               {item.name}
             </NavLink>
@@ -56,7 +59,7 @@ const Navbar = () => {
           <motion.div
             whileInView={{ x: [300, 0] }}
             transition={{ duration: 0.85, ease: 'easeOut' }}
-            className={`fixed top-0 bottom-0 right-0 z-5 p-4 w-[80%] h-[100vh] flex justify-end items-end flex-col bg-nav bg-black bg-cover bg-repeat shadow-[0_0_20px_rgba(255,255,255,0.2)] md:hidden`}
+            className={`fixed top-0 bottom-0 right-0 z-20 p-4 w-[80%] h-[100vh] flex justify-end items-end flex-col bg-nav bg-black bg-cover bg-repeat shadow-[0_0_20px_rgba(255,255,255,0.2)] md:hidden`}
           >
             <HiX
               onClick={() => setToggle(false)}
