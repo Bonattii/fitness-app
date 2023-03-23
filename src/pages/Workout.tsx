@@ -1,4 +1,4 @@
-import { FormEvent, useState } from 'react';
+import { FormEvent, useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { HiPlus, HiX, HiSearch, HiCheck } from 'react-icons/hi';
 import * as Dialog from '@radix-ui/react-dialog';
@@ -53,6 +53,10 @@ const Workout = () => {
     }
   ]);
   const [workoutIdsList, setWorkoutIdsList] = useState<Array<string>>([]);
+
+  // useEffect(() => {
+  //   console.log(workoutList);
+  // }, [workoutList]);
 
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -284,37 +288,38 @@ const Workout = () => {
       <TitleText title={<>My Workouts</>} textStyles="text-center" />
 
       <div className="sm:px-16 px-6 py-8 relative w-full flex justify-center items-center gap-20 flex-wrap 2xl:max-w-[1280px] mx-auto">
-        {workoutList.slice(1).map(workout => (
-          <div
-            key={workout.workoutName}
-            className="glassmorphism px-8 py-6 rounded-xl brightness-90"
-          >
-            <h1 className="text-white text-2xl mb-4 font-medium uppercase text-center">
-              {workout.workoutName}
-            </h1>
-            {workout.list.map(exercise => (
-              <div
-                key={exercise.id}
-                className="flex justify-between items-center mb-6"
-              >
-                <div className="flex items-center gap-8">
-                  <img
-                    src={exercise.gifUrl}
-                    alt={`${exercise.name} gif`}
-                    className="rounded-full w-[90px] h-[90px]"
-                  />
+        {workoutList &&
+          workoutList.slice(1).map(workout => (
+            <div
+              key={workout.workoutName}
+              className="glassmorphism px-8 py-6 rounded-xl brightness-90"
+            >
+              <h1 className="text-white text-2xl mb-4 font-medium uppercase text-center">
+                {workout.workoutName}
+              </h1>
+              {workout.list.map(exercise => (
+                <div
+                  key={exercise.id}
+                  className="flex justify-between items-center mb-6"
+                >
+                  <div className="flex items-center gap-8">
+                    <img
+                      src={exercise.gifUrl}
+                      alt={`${exercise.name} gif`}
+                      className="rounded-full w-[90px] h-[90px]"
+                    />
 
-                  <div className="text-primary-white pr-8">
-                    <h2 className="capitalize text-xl font-medium mb-2">
-                      {exercise.name}
-                    </h2>
-                    <p className="text-gray-300">Target: {exercise.target}</p>
+                    <div className="text-primary-white pr-8">
+                      <h2 className="capitalize text-xl font-medium mb-2">
+                        {exercise.name}
+                      </h2>
+                      <p className="text-gray-300">Target: {exercise.target}</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
-          </div>
-        ))}
+              ))}
+            </div>
+          ))}
       </div>
     </div>
   );
