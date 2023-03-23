@@ -7,10 +7,9 @@ import * as Checkbox from '@radix-ui/react-checkbox';
 import axios from 'axios';
 
 import { zoomIn, staggerContainer } from '../utils/motion';
-import { Input, TypingText } from '../components';
+import { Input, TitleText } from '../components';
 
 const Workout = () => {
-  const [haveWorkouts, setHaveWorkouts] = useState(false);
   const [exerciseName, setExerciseName] = useState('');
   const [workoutName, setWorkoutName] = useState('');
   const [showScroll, setShowScroll] = useState(false);
@@ -109,7 +108,7 @@ const Workout = () => {
       .then(response => setAllWorkouts(response.data))
       .catch(error => console.log(error));
 
-    const auxiliarArray: any = [];
+    let auxiliarArray: any = [];
 
     for (let i = 0; i < allWorkouts.length; i++) {
       for (let j = 0; j < workoutIdsList.length; j++) {
@@ -118,6 +117,8 @@ const Workout = () => {
         }
       }
     }
+
+    // PROBLEM IS HERE
 
     setWorkoutList(prev => [
       ...prev,
@@ -129,13 +130,13 @@ const Workout = () => {
 
     console.log(workoutList);
 
+    setWorkoutIdsList([]);
     setWorkoutName('');
-    setHaveWorkouts(true);
   }
 
   return (
-    <div className="h-screen">
-      <div className="flex justify-center items-center flex-col h-full">
+    <div className="h-screen mb-12 relative">
+      <div className="sm:px-16 px-6 py-8 relative w-full flex justify-center items-center 2xl:max-w-[1280px] mx-auto">
         <Dialog.Root>
           <Dialog.Trigger>
             <motion.button
@@ -153,7 +154,7 @@ const Workout = () => {
           <Dialog.Portal>
             <Dialog.Overlay className="w-screen h-screen bg-black/80 fixed inset-0" />
 
-            <Dialog.Content className="absolute p-10 mt-12 bg-black border border-secondary-blue rounded-2xl w-full max-w-xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
+            <Dialog.Content className="absolute p-10 bg-black border border-secondary-blue rounded-2xl w-full max-w-xl top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2">
               <Dialog.Close className="absolute right-6 top-6 text-gray-400 rounded-lg hover:text-gray-200 focus:outline-none focus:ring-2 focus:ring-secondary-blue focus:ring-offset-2 focus:ring-offset-secondary-blue">
                 <HiX className="" size={30} aria-label="close" />
               </Dialog.Close>
@@ -177,6 +178,7 @@ const Workout = () => {
                     placeholder="Search for exercises"
                     value={exerciseName}
                     onChange={e => setExerciseName(e.target.value)}
+                    required
                   />
                   <button
                     type="submit"
@@ -219,10 +221,12 @@ const Workout = () => {
                             <Checkbox.Root
                               className="flex items-center gap-3 group focus:outline-none"
                               checked={workoutIdsList.includes(
-                                exercise.id || ''
+                                exercise.id as string
                               )}
                               onCheckedChange={() =>
-                                handleToggleWorkoutListIds(exercise.id || '')
+                                handleToggleWorkoutListIds(
+                                  exercise.id as string
+                                )
                               }
                             >
                               <div className="h-8 w-8 rounded-lg flex items-center justify-center bg-black border-2 border-zinc-800 group-data-[state=checked]:bg-secondary-blue group-data-[state=checked]:border-secondary-blue transition-colors group-focus:ring-2 group-focus:ring-secondary-blue group-focus:ring-offset-2 group-focus:ring-offset-background">
@@ -271,33 +275,42 @@ const Workout = () => {
             </Dialog.Content>
           </Dialog.Portal>
         </Dialog.Root>
+      </div>
 
-        {workoutList.map(workout => (
-          <div key={workout.workoutName}>
-            <h1 className="text-white">
-              {workout.workoutName !== 'Teste' ? workout.workoutName : null}
+      <div className="mb-[50px] h-[2px] bg-primary-white opacity-10" />
+
+      <div className="gradient-04 z-0" />
+
+      <TitleText title={<>My Workouts</>} textStyles="text-center" />
+
+      <div className="sm:px-16 px-6 py-8 relative w-full flex justify-center items-center gap-20 flex-wrap 2xl:max-w-[1280px] mx-auto">
+        {workoutList.slice(1).map(workout => (
+          <div
+            key={workout.workoutName}
+            className="glassmorphism px-8 py-6 rounded-xl brightness-90"
+          >
+            <h1 className="text-white text-2xl mb-4 font-medium uppercase text-center">
+              {workout.workoutName}
             </h1>
             {workout.list.map(exercise => (
               <div
                 key={exercise.id}
                 className="flex justify-between items-center mb-6"
               >
-                {workout.workoutName !== 'Teste' ? (
-                  <div className="flex items-center gap-8">
-                    <img
-                      src={exercise.gifUrl}
-                      alt={`${exercise.name} gif`}
-                      className="rounded-full w-[90px] h-[90px]"
-                    />
+                <div className="flex items-center gap-8">
+                  <img
+                    src={exercise.gifUrl}
+                    alt={`${exercise.name} gif`}
+                    className="rounded-full w-[90px] h-[90px]"
+                  />
 
-                    <div className="text-primary-white pr-8">
-                      <h2 className="capitalize text-xl font-medium mb-2">
-                        {exercise.name}
-                      </h2>
-                      <p className="text-gray-300">Target: {exercise.target}</p>
-                    </div>
+                  <div className="text-primary-white pr-8">
+                    <h2 className="capitalize text-xl font-medium mb-2">
+                      {exercise.name}
+                    </h2>
+                    <p className="text-gray-300">Target: {exercise.target}</p>
                   </div>
-                ) : null}
+                </div>
               </div>
             ))}
           </div>
