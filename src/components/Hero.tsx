@@ -8,7 +8,7 @@ const Hero = () => {
   return (
     <section className="sm:py-16 xs:py-8 py-12 sm:pl-16 pl-6">
       <motion.div
-        variants={staggerContainer}
+        variants={staggerContainer()}
         initial="hidden"
         whileInView="show"
         viewport={{ once: false, amount: 0.25 }}

@@ -151,7 +151,7 @@ const Workout = () => {
               </Dialog.Title>
 
               <motion.div
-                variants={staggerContainer}
+                variants={staggerContainer()}
                 initial="hidden"
                 whileInView="show"
               >
