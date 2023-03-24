@@ -1,5 +1,4 @@
 import React from 'react';
-
 interface StartStepsProps {
   number: number;
   text: string;

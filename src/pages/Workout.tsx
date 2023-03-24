@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import { motion } from 'framer-motion';
 import { HiPlus, HiX, HiSearch, HiCheck } from 'react-icons/hi';
 import * as Dialog from '@radix-ui/react-dialog';
@@ -7,24 +7,13 @@ import * as Checkbox from '@radix-ui/react-checkbox';
 import axios from 'axios';
 
 import { zoomIn, staggerContainer } from '../utils/motion';
+
 import { Input, TitleText } from '../components';
 
 const Workout = () => {
   const [exerciseName, setExerciseName] = useState('');
   const [workoutName, setWorkoutName] = useState('');
   const [showScroll, setShowScroll] = useState(false);
-  const [allWorkouts, setAllWorkouts] = useState<
-    [
-      {
-        bodyPart?: string;
-        equipment?: string;
-        gifUrl?: string;
-        id?: string;
-        name?: string;
-        target?: string;
-      }
-    ]
-  >([{}]);
   const [listOfExecises, setListOfExercises] = useState<
     [
       {
@@ -110,8 +99,6 @@ const Workout = () => {
     axios
       .request(options)
       .then(response => {
-        setAllWorkouts(response.data);
-
         for (let i = 0; i < workoutIdsList.length; i++) {
           let output = response.data.find(
             (val: any) => val.id == workoutIdsList[i]
@@ -137,18 +124,19 @@ const Workout = () => {
     <div className="h-screen mb-12 relative">
       <div className="sm:px-16 px-6 py-8 relative w-full flex justify-center items-center 2xl:max-w-[1280px] mx-auto">
         <Dialog.Root>
-          <Dialog.Trigger>
-            <motion.button
-              variants={zoomIn(0.4, 1)}
-              initial="hidden"
-              whileInView="show"
+          <motion.div
+            variants={zoomIn(0.4, 1)}
+            initial="hidden"
+            whileInView="show"
+          >
+            <Dialog.Trigger
               type="button"
               className="flex items-center h-fit py-4 px-6 bg-secondary-blue rounded-[32px] gap-[12px] hover:bg-primary-blue transition text-primary-white text-lg"
             >
               <HiPlus size={25} />
               Create workout
-            </motion.button>
-          </Dialog.Trigger>
+            </Dialog.Trigger>
+          </motion.div>
 
           <Dialog.Portal>
             <Dialog.Overlay className="w-screen h-screen bg-black/80 fixed inset-0" />
@@ -195,9 +183,9 @@ const Workout = () => {
                           Exercises
                         </div>
 
-                        {listOfExecises.map(exercise => (
+                        {listOfExecises.map((exercise, index) => (
                           <div
-                            key={exercise.id}
+                            key={`${exercise.id}-${index}`}
                             className="flex justify-between items-center mb-6"
                           >
                             <div className="flex items-center gap-8">
@@ -284,9 +272,9 @@ const Workout = () => {
 
       <div className="sm:px-16 px-6 py-8 relative w-full flex justify-center items-center gap-20 flex-wrap 2xl:max-w-[1280px] mx-auto">
         {workoutList &&
-          workoutList.slice(1).map(workout => (
+          workoutList.slice(1).map((workout, index) => (
             <div
-              key={workout.workoutName}
+              key={`${workout.workoutName}-${index}`}
               className="glassmorphism px-8 py-6 rounded-xl brightness-90"
             >
               <h1 className="text-white text-2xl mb-4 font-medium uppercase text-center">
