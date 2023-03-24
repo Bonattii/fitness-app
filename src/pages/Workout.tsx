@@ -54,6 +54,8 @@ const Workout = () => {
   ]);
   const [workoutIdsList, setWorkoutIdsList] = useState<Array<string>>([]);
 
+  const apiId = import.meta.env.VITE_API_KEY;
+
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setShowScroll(true);
@@ -64,7 +66,7 @@ const Workout = () => {
       method: 'GET',
       url: `https://exercisedb.p.rapidapi.com/exercises/name/${parameter}`,
       headers: {
-        'X-RapidAPI-Key': 'b2077e120emsh760fc651c650520p17d18ejsnac574cf674ca',
+        'X-RapidAPI-Key': apiId,
         'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
       }
     };
@@ -98,7 +100,7 @@ const Workout = () => {
       method: 'GET',
       url: 'https://exercisedb.p.rapidapi.com/exercises',
       headers: {
-        'X-RapidAPI-Key': 'b2077e120emsh760fc651c650520p17d18ejsnac574cf674ca',
+        'X-RapidAPI-Key': apiId,
         'X-RapidAPI-Host': 'exercisedb.p.rapidapi.com'
       }
     };
