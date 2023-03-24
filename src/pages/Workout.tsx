@@ -54,10 +54,6 @@ const Workout = () => {
   ]);
   const [workoutIdsList, setWorkoutIdsList] = useState<Array<string>>([]);
 
-  // useEffect(() => {
-  //   console.log(workoutList);
-  // }, [workoutList]);
-
   async function handleSubmit(e: FormEvent) {
     e.preventDefault();
     setShowScroll(true);
@@ -107,32 +103,29 @@ const Workout = () => {
       }
     };
 
-    axios
-      .request(options)
-      .then(response => setAllWorkouts(response.data))
-      .catch(error => console.log(error));
-
     let auxiliarArray: any = [];
 
-    for (let i = 0; i < allWorkouts.length; i++) {
-      for (let j = 0; j < workoutIdsList.length; j++) {
-        if (allWorkouts[i].id === workoutIdsList[j]) {
-          auxiliarArray.push(allWorkouts[i]);
+    axios
+      .request(options)
+      .then(response => {
+        setAllWorkouts(response.data);
+
+        for (let i = 0; i < workoutIdsList.length; i++) {
+          let output = response.data.find(
+            (val: any) => val.id == workoutIdsList[i]
+          );
+          auxiliarArray.push(output);
         }
-      }
-    }
 
-    // PROBLEM IS HERE
-
-    setWorkoutList(prev => [
-      ...prev,
-      {
-        workoutName,
-        list: auxiliarArray
-      }
-    ]);
-
-    console.log(workoutList);
+        setWorkoutList([
+          ...workoutList,
+          {
+            workoutName,
+            list: auxiliarArray
+          }
+        ]);
+      })
+      .catch(error => console.log(error));
 
     setWorkoutIdsList([]);
     setWorkoutName('');
